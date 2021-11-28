@@ -1,0 +1,100 @@
+<div class="container">
+    <div class="col-8 mx-auto position-absolute top-50 start-50 translate-middle">
+        <div class="col-3 mx-auto">
+            <img src="../../../assets/images/logo.jpg" class="img-fluid">
+            <h4>turntabl Crud App</h4>
+           </div>
+           <div class="row">
+           <div class="col-6 mt-2">
+    <div class="panel-body">
+        <ul class="list-group">
+        
+            <li class="list-group-item" *ngFor="let user of details">
+              
+              <div class="img-fluid mx-auto text-center">
+              <img *ngIf="user.image_url" [src]="user.image_url" alt="...">
+              </div>
+                <strong>Name :</strong><span> {{user.name}}</span><br>
+                <strong>Email :</strong><span> {{user.email}}</span><br>
+                <strong>Position:</strong><span> {{user.position}}</span><br>
+                <strong>Company:</strong><span> {{user.company}}</span><br>
+                <i type="button" (click)="deleteDetails(user.id)" class="fa fa-trash-o m-2" style="font-size: 1.5rem;color: red;float: right;" aria-hidden="true" title="Delete"></i>
+                <i type="button" (click)="getDetailsById(user.id)" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" class="fa fa-pencil-square-o m-2" style="font-size: 1.5rem;color:green;float: right;" aria-hidden="true"></i>
+            
+            </li>
+     
+           
+        </ul>
+    </div>
+
+           </div>
+           <div class="col-6 mt-2">
+        <form>
+          
+                <div class="col-10 mx-auto">
+                    <label>Name</label>
+                    <input [(ngModel)]="name" type="text" class="form-control" placeholder="Name" name="Name">
+            </div>
+            <div class="col-10 mt-2 mx-auto">
+                <label>Email</label>
+                <input [(ngModel)]="email" type="email" class="form-control" placeholder="Email" name="email">
+            </div>
+            <div class="col-10 mt-2 mx-auto">
+                <label>Position</label>
+                <select name="position" #selectInput (change)="selectPosition($any($event.target).value)" class="form-select" placeholder="Position" >
+                    <option disabled selected hidden> Position</option>
+                    <option value="Software Engineer">Software Engineer</option>
+                    <option value="Project Manager">Project Manager</option>
+                </select>
+            </div>
+            <div class="col-10 mt-2 mx-auto">
+              <label>Upload Picture</label>
+              <input type="file" #takeInput (change)="uploadFile($event)" class="form-control mb-2" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+            </div>
+            <div class="col-10 mt-2 mx-auto">
+                <label>Company</label>
+                <input type="text" [(ngModel)]="company" class="form-control" placeholder="Company" name="Company">
+            </div>
+            <div class="col-2 mx-auto mt-3">
+                <button (click)="createDetails()" type="button" class="btn-sm btn-primary mx-auto">Send</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="col-12">
+                <h6 *ngIf="saved" style="color: green; text-align: center;">Changes Saved</h6>
+            <form class="form-floating">
+                <input [(ngModel)] = "update_details.name" name="name" type="text" class="form-control" id="floatingInputValue"  *ngIf="update_details" value="{{update_details.name}}">
+                <label for="floatingInputValue" >Name</label>
+              </form>
+              <form class="form-floating">
+                <input [(ngModel)] = "update_details.email" name="email" type="email" class="form-control" id="floatingInputValue"  *ngIf="update_details" value="{{update_details.email}}">
+                <label for="floatingInputValue" >Email</label>
+              </form>
+              <form class="form-floating mt-2">
+                <input [(ngModel)] = "update_details.position" name="name" type="text" class="form-control" id="floatingInputValue"  *ngIf="update_details" value="{{update_details.position}}">
+                <label for="floatingInputValue" >Postion</label>
+              </form>
+              <form class="form-floating mt-2">
+                <input [(ngModel)] = "update_details.company" name="name" type="text" class="form-control" id="floatingInputValue"  *ngIf="update_details" value="{{update_details.company}}">
+                <label for="floatingInputValue" >Company</label>
+              </form>
+              </div>
+        </div>
+        <div class="modal-footer">
+     
+          <button type="button" (click)="save()" class="btn-sm btn-primary">Save</button>
+          <button type="button" (click)="close()" class="btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
